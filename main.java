@@ -28,5 +28,6 @@ public class main {
         main_window.setLocationRelativeTo(null);
         //Self-explanatory
         main_window.setVisible(true);
+        
     }
 }
