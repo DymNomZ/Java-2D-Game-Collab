@@ -1,3 +1,4 @@
+package src;
 import javax.swing.JFrame;
 
 public class main {
@@ -29,5 +30,7 @@ public class main {
         //Self-explanatory
         main_window.setVisible(true);
         
+        //testing
+        main_panel.start_clock();
     }
 }

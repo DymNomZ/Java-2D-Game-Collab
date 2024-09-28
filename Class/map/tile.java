@@ -1,11 +1,11 @@
-
+package Class.map;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class tile {
 
-    BufferedImage texture;
+    public BufferedImage texture;
     //kind is for souting purposes
     String kind;
 
