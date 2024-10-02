@@ -14,9 +14,12 @@ public class panel extends JPanel {
     public final int scale = 2, def_dimension = 32;
     public final int tile_size = def_dimension * scale;
     //Number of tiles to display by row and column
-    public final int max_screen_row = 12, max_screen_col = 23;
+    public final int max_screen_row = 10, max_screen_col = 20;
     public final int screen_width = tile_size * max_screen_col;
     public int screen_height = tile_size * max_screen_row;
+    //Dymes - Oct 2, 2024
+    //The map's row and column length, temporary 50 for now, but will be easier to change later when we have different maps
+    public final int max_map_row = 50, max_map_col = 50;
 
     map_constructor map = new map_constructor("../../assets/map/temp_tile.png", "map");
     
@@ -46,7 +49,7 @@ public class panel extends JPanel {
     //Source: https://stackoverflow.com/questions/5446396/concerns-about-the-function-of-jpanel-paintcomponent
 
     //temporary
-    dummy d = new dummy(screen_height, screen_width);
+    dummy d = new dummy(screen_width, screen_height, tile_size, max_map_col, max_map_row);
 
     //this will listen to the timer, and I think the Timer class creates a thread?, maybe that's why we need to listen to it?
     //source: https://www.reddit.com/r/javahelp/comments/6d5rr4/threads_or_timer_for_java_game/
@@ -68,7 +71,7 @@ public class panel extends JPanel {
     public void paintComponent(Graphics g){
         //info about Graphics class: https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics.html#:~:text=The%20Graphics%20class%20is%20the,rendering%20operations%20that%20Java%20supports.
         super.paintComponent(g);
-        map.display_tiles(g, tile_size, max_screen_row, max_screen_col);
+        map.display_tiles(g, tile_size, max_map_row, max_map_col, d);
         d.display_dummy(g, tile_size);
     }
 }
