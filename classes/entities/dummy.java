@@ -37,7 +37,7 @@ public class dummy {
             && (y_pos > screen_y && y_pos < ((map_height * t_size) - (screen_y + t_size))))){
                 xx = screen_x;
                 yy = screen_y;
-                System.out.println("xx: " + xx + " yy: " + yy + " x pos: " + x_pos + " y pos: " + y_pos);
+                //System.out.println("xx: " + xx + " yy: " + yy + " x pos: " + x_pos + " y pos: " + y_pos);
                 g.drawImage(
                     sprite, 
                     (screen_x - (t_size/2)), (screen_y - (t_size/2)), 
@@ -45,7 +45,11 @@ public class dummy {
                     null)
                 ;
             }else{
-                System.out.println("xx: " + xx + " yy: " + yy + " x pos: " + x_pos + " y pos: " + y_pos);
+                //System.out.println("xx: " + xx + " yy: " + yy + " x pos: " + x_pos + " y pos: " + y_pos);
+                if(yy < 0) yy = 0;
+                else if(yy > 640) yy = 640;
+                if(xx < 0) xx = 0;
+                else if(xx > 1280) xx = 1280;
                 g.drawImage(
                     sprite, 
                     (xx - (t_size/2)), (yy - (t_size/2)), 
@@ -57,9 +61,7 @@ public class dummy {
 
     public void update_position(key_handler inputs){
         //check which key is pressed and add/subtract the corresponding value
-        // System.out.println("Current pos: x: " + x_pos + " y: " + y_pos + 
-        // " | Screen pos: x: " + screen_x + " y: " + screen_y +
-        // " | Padding: x: " + ((50 * 64) - (screen_x + 64)) + " y: " + ((64 * 10) * 4 - (screen_y + 64)));
+        System.out.println("Current pos: x: " + x_pos + " y: " + y_pos + " | Screen pos: x: " + screen_x + " y: " + screen_y);
         if(inputs.up_pressed || inputs.down_pressed || inputs.left_pressed || inputs.right_pressed){
             if ((x_pos > screen_x && x_pos < ((map_length * t_size) - (screen_x + t_size))
             && (y_pos > screen_y && y_pos < ((map_height * t_size) - (screen_y + t_size))))){
