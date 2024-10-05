@@ -13,7 +13,6 @@ public class key_handler implements KeyListener {
     public void keyPressed(KeyEvent e){
         //below is what is known as a running switch case, no need for breaks, pretty cool
         int code = e.getKeyCode();
-        System.out.println("called " + code);
         switch (code){
             case KeyEvent.VK_W -> up_pressed = true;
             case KeyEvent.VK_S -> down_pressed = true;
@@ -25,7 +24,6 @@ public class key_handler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e){
         int code = e.getKeyCode();
-        System.out.println("released " + code);
         switch (code){
             case KeyEvent.VK_W -> up_pressed = false;
             case KeyEvent.VK_S -> down_pressed = false;

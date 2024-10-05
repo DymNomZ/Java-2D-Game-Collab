@@ -1,4 +1,4 @@
-package Class.Items;
+package classes.items;
 
 public abstract class ITEM {
     private String name;

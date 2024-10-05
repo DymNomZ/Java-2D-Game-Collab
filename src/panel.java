@@ -1,5 +1,4 @@
 package src;
-import Class.Entities.dummy;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -7,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import classes.entities.dummy;
 
 public class panel extends JPanel {
     //Dymes:
@@ -21,7 +22,12 @@ public class panel extends JPanel {
     //The map's row and column length, temporary 50 for now, but will be easier to change later when we have different maps
     public final int max_map_row = 50, max_map_col = 50;
 
-    map_constructor map = new map_constructor("../../assets/map/temp_tile.png", "map");
+    map_constructor map = new map_constructor(
+        "../../assets/maps/test_pattern_map.txt", 
+        "dummy_map", 
+        max_map_row, 
+        max_map_col
+    );
     
     //JPanel in a nutshell is our "canvas", that's where we put all our components like sprites, etc.
     //The reasone why we let the panel dictate the size insstead of using the JFrame.setSize()
@@ -71,7 +77,7 @@ public class panel extends JPanel {
     public void paintComponent(Graphics g){
         //info about Graphics class: https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics.html#:~:text=The%20Graphics%20class%20is%20the,rendering%20operations%20that%20Java%20supports.
         super.paintComponent(g);
-        map.display_tiles(g, tile_size, max_map_row, max_map_col, d);
+        map.display_tiles(g, tile_size, max_map_row, max_map_col, d, screen_height, screen_width);
         d.display_dummy(g, tile_size);
     }
 }
