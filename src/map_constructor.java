@@ -42,7 +42,7 @@ public class map_constructor {
         //More info: https://stackoverflow.com/questions/7991770/inputstreamreader-vs-filereader
         //Encountered an error when reading earlier, this fixed it: https://stackoverflow.com/questions/22585621/the-filereader-cannot-find-my-text-file
         try {
-            reader = new BufferedReader(new FileReader("assets/maps/dummy_map.txt"));
+            reader = new BufferedReader(new FileReader("assets/maps/test_pattern_map.txt"));
         } catch (IOException e) {
             System.out.println("Error reading map data for map: " + kind);
         }
@@ -65,10 +65,10 @@ public class map_constructor {
     }
 
     void display_tiles(
-        Graphics g, int t_size, 
+        Graphics g, int TILE_SIZE, 
         int map_height, int map_length, 
         dummy d, 
-        int screen_height, int screen_width){
+        int SCREEN_HEIGHT, int SCREEN_WIDTH){
         //Dymes - Oct 2, 2024
         //these variables are intended for easier use once we have multiple maps
         //because we will store the map data inside an array, the names explain what they do
@@ -83,11 +83,11 @@ public class map_constructor {
 
         while(map_tile_row < map_height){
             //indicates the position of the tile on the map
-            tile_y = map_tile_row * t_size; //we multiply to "jump" the length of tile size to not overwrite the current pixel displayed
+            tile_y = map_tile_row * TILE_SIZE; //we multiply to "jump" the length of tile size to not overwrite the current pixel displayed
                                             //the idea is similar to accessing an array in C without using index access
 
             while(map_tile_col < map_length){
-                tile_x = map_tile_col * t_size;
+                tile_x = map_tile_col * TILE_SIZE;
                 
                 //Checks if the camera should enter edge mode
                 //How it works is that it checks if the dummy's position when rendering the tiles of the map visible to the screen
@@ -95,8 +95,8 @@ public class map_constructor {
                 //ie if the dummy is at x position 640, you can think of it that the dummy is 640 pixels away from the border
                 //any lower than that it will display the "void" because the screen has to display something to fit the 1280x640 screen
                 //maka explain rako guys puhon if mo ask mo AHAHAHAHAHHAH
-                if ((d.x_pos > d.screen_x && d.x_pos < ((map_length * t_size) - (d.screen_x + t_size))
-                && (d.y_pos > d.screen_y && d.y_pos < ((map_height * t_size) - (d.screen_y + t_size))))) {
+                if ((d.x_pos > d.screen_x && d.x_pos < ((map_length * TILE_SIZE) - (d.screen_x + TILE_SIZE))
+                && (d.y_pos > d.screen_y && d.y_pos < ((map_height * TILE_SIZE) - (d.screen_y + TILE_SIZE))))) {
                     recent_x = d.x_pos;
                     recent_y = d.y_pos;
                     
@@ -106,8 +106,8 @@ public class map_constructor {
                     //Basically it checks whether a tile is inside the screen, if not, we do not display it to save resources
                     //We add tile_pos with the tile_size, basically we check a tile extra, because if you notice when you remove the addition
                     //It has a "border" so we check tiles that are just shy of being part of the screen so that it removes that border
-                    if ((tile_x + t_size > d.x_pos - d.screen_x && tile_x - t_size < d.x_pos + d.screen_x) &&
-                    (tile_y + t_size > d.y_pos - d.screen_y && tile_y - t_size < d.y_pos + d.screen_y)) {
+                    if ((tile_x + TILE_SIZE > d.x_pos - d.screen_x && tile_x - TILE_SIZE < d.x_pos + d.screen_x) &&
+                    (tile_y + TILE_SIZE > d.y_pos - d.screen_y && tile_y - TILE_SIZE < d.y_pos + d.screen_y)) {
 
                         //This will handle where the tile will be drawn relative to the screen, since it passed the check if a tile is within our screen or not
                         //It works by taking the position of a tile relative to the map and subtract our dummy's position
@@ -126,7 +126,7 @@ public class map_constructor {
                             tiles[map_tiles[map_tile_row][map_tile_col]].texture, 
                             screen_x, 
                             screen_y, 
-                            t_size, t_size, 
+                            TILE_SIZE, TILE_SIZE, 
                             null
                         );
                     }
@@ -134,11 +134,11 @@ public class map_constructor {
                     //The following if-else if statements is the mechanism for the "dragging" of the camera by the dummy when in edge mode
                     //It check whether the dummy is outside the borders of the screen, if so then it sorts of "pushes" the camera with it
                     //we add 10 as that is our temporary default speed variable of our character, this is will be changed once we have a finalized walk speed value
-                    if(d.y_pos < recent_y - (screen_height/2)) recent_y -= 10;
-                    else if (d.y_pos > recent_y + (screen_height/2)) recent_y += 10;
+                    if(d.y_pos < recent_y - (SCREEN_HEIGHT/2)) recent_y -= 10;
+                    else if (d.y_pos > recent_y + (SCREEN_HEIGHT/2)) recent_y += 10;
                     
-                    if (d.x_pos < recent_x - (screen_width/2)) recent_x -=10;
-                    else if (d.x_pos > recent_x + (screen_width/2)) recent_x += 10;
+                    if (d.x_pos < recent_x - (SCREEN_WIDTH/2)) recent_x -=10;
+                    else if (d.x_pos > recent_x + (SCREEN_WIDTH/2)) recent_x += 10;
 
                     //same idea of the above comment on the above if statement
                     screen_x = tile_x - recent_x + d.screen_x;    
@@ -147,7 +147,7 @@ public class map_constructor {
                         tiles[map_tiles[map_tile_row][map_tile_col]].texture, 
                         screen_x, 
                         screen_y, 
-                        t_size, t_size, 
+                        TILE_SIZE, TILE_SIZE, 
                         null
                     );
                 }
