@@ -68,6 +68,7 @@ public class dummy {
         if(inputs.up_pressed || inputs.down_pressed || inputs.left_pressed || inputs.right_pressed){
 
             //--Out of bounds map edge check--
+            //
             if(x_pos == MIN_X && inputs.left_pressed) return;
             /*
             if character is touching left edge and pressing left button
