@@ -15,6 +15,11 @@ public class dummy {
     public int x_pos, y_pos, screen_x, screen_y, map_length, map_height;
     public int xx, yy;
 
+    private boolean cameraNotTouchingEdge(){
+        return (x_pos > screen_x && x_pos < ((map_length * TILE_SIZE) - (screen_x + TILE_SIZE))
+                && (y_pos > screen_y && y_pos < ((map_height * TILE_SIZE) - (screen_y + TILE_SIZE))));
+    }
+
     public dummy(int x, int y, int TILE_SIZE, int map_length, int map_height){
         this.map_length = map_length;
         this.map_height = map_height;
@@ -65,62 +70,62 @@ public class dummy {
             }
     }
 
+
     public void update_position(key_handler inputs){
         //check which key is pressed and add/subtract the corresponding value
+        int delta_x = 0, delta_y = 0;//Delta means "change in"
         System.out.println("Current pos: x: " + x_pos + " y: " + y_pos + " | Screen pos: x: " + screen_x + " y: " + screen_y);
         if(inputs.up_pressed || inputs.down_pressed || inputs.left_pressed || inputs.right_pressed){
+            if(inputs.up_pressed)
+                delta_y = -10;
+            if(inputs.down_pressed)
+                delta_y = 10;
+            if(inputs.up_pressed == inputs.down_pressed)
+                delta_y = 0;
 
-            //--Out of bounds map edge check--
-            //TODO INSTEAD OF USING 2, USE SCALE and POLISHING
-            if(x_pos <= (MIN_X + (16 * 2)) && inputs.left_pressed) return;
-            /*
-            if character is touching left edge and pressing left button
-            stops all the code below from running to prevent "passing through" the map
-            */
-
-            if(x_pos >= (MAX_X - (16 * 2)) && inputs.right_pressed) return;
-            /*
-            if character is touching right edge and pressing right button
-            stops all the code below from running to prevent "passing through" the map
-            */
-
-            if(y_pos <= (MIN_Y + (16 * 2)) && inputs.up_pressed) return;
-            /*
-            if character is touching north edge and up button
-            stops all the code below from running to prevent "passing through" the map
-            */
-
-            if(y_pos >= (MAX_Y - (16 * 2)) && inputs.down_pressed) return;
-            /*
-            if character is touching south edge and pressing down button
-            stops all the code below from running to prevent "passing through" the map
-            */
-
-            /*
-            The minor problem with the code above is that if for example:
-            You were on the left edge and pressing the A key at the same time
-            You cannot press up or down key to move upwards whilst holding the A key as the condition
-            would just stop the code below from being executed
-            */
-
-
-            if ((x_pos > screen_x && x_pos < ((map_length * TILE_SIZE) - (screen_x + TILE_SIZE))
-            && (y_pos > screen_y && y_pos < ((map_height * TILE_SIZE) - (screen_y + TILE_SIZE))))){
-                if(inputs.up_pressed) y_pos -= 10;
-                else if(inputs.down_pressed) y_pos += 10;
-                else if(inputs.left_pressed) x_pos -= 10;
-                else if(inputs.right_pressed) x_pos += 10;
-
-            } else {
-                if(inputs.up_pressed)yy -= 10;
-                else if(inputs.down_pressed) yy += 10;
-                else if(inputs.left_pressed) xx -= 10;
-                else if(inputs.right_pressed) xx += 10;
-                if(inputs.up_pressed) y_pos -= 10;
-                else if(inputs.down_pressed) y_pos += 10;
-                else if(inputs.left_pressed) x_pos -= 10;
-                else if(inputs.right_pressed) x_pos += 10;
+            if(inputs.left_pressed)
+                delta_x = -10;
+            if(inputs.right_pressed)
+                delta_x = 10;
+            if(inputs.right_pressed == inputs.left_pressed){
+                delta_x = 0;
             }
+
+            //TODO INSTEAD OF USING 2, USE SCALE and POLISHING
+            if(x_pos <= (MIN_X + (16 * 2)) && inputs.left_pressed) delta_x = 0;
+
+
+            if(x_pos >= (MAX_X - (16 * 2)) && inputs.right_pressed) delta_x = 0;
+
+
+            if(y_pos <= (MIN_Y + (16 * 2)) && inputs.up_pressed) delta_y = 0;
+
+
+            if(y_pos >= (MAX_Y - (16 * 2)) && inputs.down_pressed) delta_y = 0;
+//
+
+//            if (cameraNotTouchingEdge()){
+//                if(inputs.up_pressed) y_pos -= 10;
+//                else if(inputs.down_pressed) y_pos += 10;
+//                else if(inputs.left_pressed) x_pos -= 10;
+//                else if(inputs.right_pressed) x_pos += 10;
+//
+//            } else {
+//                if(inputs.up_pressed)yy -= 10;
+//                else if(inputs.down_pressed) yy += 10;
+//                else if(inputs.left_pressed) xx -= 10;
+//                else if(inputs.right_pressed) xx += 10;
+//                if(inputs.up_pressed) y_pos -= 10;
+//                else if(inputs.down_pressed) y_pos += 10;
+//                else if(inputs.left_pressed) x_pos -= 10;
+//                else if(inputs.right_pressed) x_pos += 10;
+//            }
+            if(!cameraNotTouchingEdge()){//SO if camera touching edge HAHHAAHAHAH
+                yy += delta_y;
+                xx += delta_x;
+            }
+            y_pos += delta_y;
+            x_pos += delta_x;
 
         }
     }
