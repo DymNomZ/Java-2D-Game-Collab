@@ -25,7 +25,7 @@ public class panel extends JPanel {
     public final int MAX_SCREEN_ROW = 10, MAX_SCREEN_COL = 20, SCREEN_TILE_SIZE = 64;
     //Calculating these gives our screen resolution to be 1280 x 640
     public final int SCREEN_WIDTH = SCREEN_TILE_SIZE * MAX_SCREEN_COL;
-    public int SCREEN_HEIGHT = SCREEN_TILE_SIZE * MAX_SCREEN_ROW;
+    public final int SCREEN_HEIGHT = SCREEN_TILE_SIZE * MAX_SCREEN_ROW;
     //Dymes - Oct 2, 2024
     //The map's row and column length, temporary 50 for now, but will be easier to change later when we have different maps
     public int max_map_row = 50, max_map_col = 50;
@@ -79,6 +79,6 @@ public class panel extends JPanel {
         //info about Graphics class: https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics.html#:~:text=The%20Graphics%20class%20is%20the,rendering%20operations%20that%20Java%20supports.
         super.paintComponent(g);
         map.display_tiles(g, TILE_SIZE, max_map_row, max_map_col, d, SCREEN_HEIGHT, SCREEN_WIDTH);
-        d.display_dummy(g, TILE_SIZE);
+        d.display_dummy(g, TILE_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT);
     }
 }

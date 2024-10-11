@@ -43,7 +43,7 @@ public class dummy {
         }
     }
 
-    public void display_dummy(Graphics g, int TILE_SIZE){
+    public void display_dummy(Graphics g, int TILE_SIZE, int SCREEN_WIDTH, int SCREEN_HEIGHT){
         if ((x_pos > screen_x && x_pos < ((map_length * TILE_SIZE) - (screen_x + TILE_SIZE))
             && (y_pos > screen_y && y_pos < ((map_height * TILE_SIZE) - (screen_y + TILE_SIZE))))){
                 xx = screen_x;
@@ -58,9 +58,9 @@ public class dummy {
             }else{
                 //System.out.println("xx: " + xx + " yy: " + yy + " x pos: " + x_pos + " y pos: " + y_pos);
                 if(yy < 0) yy = 0;
-                else if(yy > 640) yy = 640;
+                else if(yy > 640) yy = SCREEN_HEIGHT;
                 if(xx < 0) xx = 0;
-                else if(xx > 1280) xx = 1280;
+                else if(xx > 1280) xx = SCREEN_WIDTH;
                 g.drawImage(
                     sprite, 
                     (xx - (TILE_SIZE/2)), (yy - (TILE_SIZE/2)), 
