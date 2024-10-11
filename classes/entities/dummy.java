@@ -75,7 +75,7 @@ public class dummy {
             stops all the code below from running to prevent "passing through" the map
             */
 
-            if(x_pos >= (MAX_X - (16 * 0)) && inputs.right_pressed) return;
+            if(x_pos >= (MAX_X - (16 * 2)) && inputs.right_pressed) return;
             /*
             if character is touching right edge and pressing right button
             stops all the code below from running to prevent "passing through" the map
