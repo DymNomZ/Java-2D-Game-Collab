@@ -6,7 +6,10 @@ import javax.imageio.ImageIO;
 import src.key_handler;
 
 public class dummy {
-
+    final public int MAX_X = 3200;
+    final public int MAX_Y = 3200;
+    final public int MIN_X = 0;
+    final public int MIN_Y = 0;
     BufferedImage sprite;
     public int x_pos, y_pos, screen_x, screen_y, map_length, map_height, t_size;
     public int xx, yy;
@@ -63,13 +66,47 @@ public class dummy {
         //check which key is pressed and add/subtract the corresponding value
         System.out.println("Current pos: x: " + x_pos + " y: " + y_pos + " | Screen pos: x: " + screen_x + " y: " + screen_y);
         if(inputs.up_pressed || inputs.down_pressed || inputs.left_pressed || inputs.right_pressed){
+
+            //--Out of bounds map edge check--
+            if(x_pos == MIN_X && inputs.left_pressed) return;
+            /*
+            if character is touching left edge and pressing left button
+            stops all the code below from running to prevent "passing through" the map
+            */
+
+            if(x_pos == MAX_X && inputs.right_pressed) return;
+            /*
+            if character is touching right edge and pressing right button
+            stops all the code below from running to prevent "passing through" the map
+            */
+
+            if(y_pos == MIN_Y && inputs.up_pressed) return;
+            /*
+            if character is touching north edge and up button
+            stops all the code below from running to prevent "passing through" the map
+            */
+
+            if(y_pos == MAX_Y && inputs.down_pressed) return;
+            /*
+            if character is touching south edge and pressing down button
+            stops all the code below from running to prevent "passing through" the map
+            */
+
+            /*
+            The minor problem with the code above is that if for example:
+            You were on the left edge and pressing the A key at the same time
+            You cannot press up or down key to move upwards whilst holding the A key as the condition
+            would just stop the code below from being executed
+            */
+
+
             if ((x_pos > screen_x && x_pos < ((map_length * t_size) - (screen_x + t_size))
             && (y_pos > screen_y && y_pos < ((map_height * t_size) - (screen_y + t_size))))){
                 if(inputs.up_pressed) y_pos -= 10;
                 else if(inputs.down_pressed) y_pos += 10;
                 else if(inputs.left_pressed) x_pos -= 10;
                 else if(inputs.right_pressed) x_pos += 10;
-                
+
             } else {
                 if(inputs.up_pressed)yy -= 10;
                 else if(inputs.down_pressed) yy += 10;
