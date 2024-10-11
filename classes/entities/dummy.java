@@ -68,26 +68,26 @@ public class dummy {
         if(inputs.up_pressed || inputs.down_pressed || inputs.left_pressed || inputs.right_pressed){
 
             //--Out of bounds map edge check--
-            //
-            if(x_pos == MIN_X && inputs.left_pressed) return;
+            //TODO INSTEAD OF USING 2, USE SCALE and POLISHING
+            if(x_pos <= (MIN_X + (16 * 2)) && inputs.left_pressed) return;
             /*
             if character is touching left edge and pressing left button
             stops all the code below from running to prevent "passing through" the map
             */
 
-            if(x_pos == MAX_X && inputs.right_pressed) return;
+            if(x_pos >= (MAX_X - (16 * 0)) && inputs.right_pressed) return;
             /*
             if character is touching right edge and pressing right button
             stops all the code below from running to prevent "passing through" the map
             */
 
-            if(y_pos == MIN_Y && inputs.up_pressed) return;
+            if(y_pos <= (MIN_Y + (16 * 2)) && inputs.up_pressed) return;
             /*
             if character is touching north edge and up button
             stops all the code below from running to prevent "passing through" the map
             */
 
-            if(y_pos == MAX_Y && inputs.down_pressed) return;
+            if(y_pos >= (MAX_Y - (16 * 2)) && inputs.down_pressed) return;
             /*
             if character is touching south edge and pressing down button
             stops all the code below from running to prevent "passing through" the map
