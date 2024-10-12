@@ -26,9 +26,17 @@ public class panel extends JPanel {
     //Calculating these gives our screen resolution to be 1280 x 640
     public final int SCREEN_WIDTH = SCREEN_TILE_SIZE * MAX_SCREEN_COL;
     public final int SCREEN_HEIGHT = SCREEN_TILE_SIZE * MAX_SCREEN_ROW;
+
+
+
     //Dymes - Oct 2, 2024
     //The map's row and column length, temporary 50 for now, but will be easier to change later when we have different maps
     public int max_map_row = 50, max_map_col = 50;
+
+    public final int NORTH_MAP_BOUNDARY = 0;
+    public final int WEST_MAP_BOUNDARY = 0;
+    public final int SOUTH_MAP_BOUNDARY = max_map_row * TILE_SIZE;
+    public final int EAST_MAP_BOUNDARY = max_map_col * TILE_SIZE;
 
     map_constructor map = new map_constructor(
         "dummy_map", 
@@ -53,13 +61,26 @@ public class panel extends JPanel {
     //temporary
     dummy d = new dummy(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, max_map_col, max_map_row);
 
+    //COLLISION TEST
+    void collisionCheck(){
+        //Checks if the dummy is colliding with map border
+	    d.setColliding_right(d.getX_pos() + (16 * SCALE) > EAST_MAP_BOUNDARY);
+	    d.setColliding_left(d.getX_pos() - (16 * SCALE) < WEST_MAP_BOUNDARY);
+	    d.setColliding_down(d.getY_pos() + (16 * SCALE) > SOUTH_MAP_BOUNDARY);
+	    d.setColliding_top(d.getY_pos() - (16 * SCALE) < NORTH_MAP_BOUNDARY);
+    }
+
+
     //this will listen to the timer, and I think the Timer class creates a thread?, maybe that's why we need to listen to it?
     //source: https://www.reddit.com/r/javahelp/comments/6d5rr4/threads_or_timer_for_java_game/
     private ActionListener timer_listener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e){
             //we pass our key handler so that our dummy can check which keys are pressed
+
+            collisionCheck();
             d.update_position(key_input);
+
             //repaint calls the paintComponent method again, so you can imagine, it redraws everything on the screen
             //basically updating what is displayed
             repaint();

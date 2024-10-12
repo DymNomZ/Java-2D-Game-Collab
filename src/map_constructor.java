@@ -12,7 +12,7 @@ public class map_constructor {
     //which you can imagine would take too much time
     //more info: https://stackoverflow.com/questions/28929643/understanding-how-bufferedreader-works-in-java
     BufferedReader reader;
-    tile tiles[] = new tile[4];
+    tile tiles[] = new tile[5];
     int map_tiles[][] = new int[50][50];
 
     //the following variables is temporary as of the moment
@@ -34,6 +34,7 @@ public class map_constructor {
             tiles[1] = new tile("../../assets/map_tiles/temp_blue.png", "temp_blue");
             tiles[2] = new tile("../../assets/map_tiles/temp_red.png", "temp_red");
             tiles[3] = new tile("../../assets/map_tiles/temp_orange.png", "temp_orange");
+            tiles[4] = new tile("../../assets/map_tiles/temp_tile.png", "temp_tile");
         } catch (Exception e) {
             System.out.println("Error retrieving tile textures for map: " + kind);
         }

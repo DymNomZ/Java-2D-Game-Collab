@@ -15,10 +15,16 @@ public class dummy {
     public int x_pos, y_pos, screen_x, screen_y, map_length, map_height;
     public int xx, yy;
 
+    boolean colliding_left;
+    boolean colliding_right;
+    boolean colliding_top;
+    boolean colliding_down;
+
     private boolean cameraNotTouchingEdge(){
         return (x_pos > screen_x && x_pos < ((map_length * TILE_SIZE) - (screen_x + TILE_SIZE))
                 && (y_pos > screen_y && y_pos < ((map_height * TILE_SIZE) - (screen_y + TILE_SIZE))));
     }
+
 
     public int getX_pos(){
         return x_pos;
@@ -26,6 +32,22 @@ public class dummy {
 
     public int getY_pos(){
         return y_pos;
+    }
+
+    public void setColliding_left(boolean colliding_left){
+        this.colliding_left = colliding_left;
+    }
+
+    public void setColliding_right(boolean colliding_right){
+        this.colliding_right = colliding_right;
+    }
+
+    public void setColliding_top(boolean colliding_top){
+        this.colliding_top = colliding_top;
+    }
+
+    public void setColliding_down(boolean colliding_down){
+        this.colliding_down = colliding_down;
     }
 
     public dummy(int x, int y, int TILE_SIZE, int map_length, int map_height){
@@ -40,6 +62,11 @@ public class dummy {
         //Cause you know how pixels are printed starting at the top most corner
         MAX_X = TILE_SIZE * map_length;
         MAX_Y = TILE_SIZE * map_height;
+
+        colliding_left = false;
+        colliding_right = false;
+        colliding_top  = false;
+        colliding_down = false;
 
         screen_x = x / 2;
         screen_y = y / 2;
@@ -70,7 +97,7 @@ public class dummy {
                 else if(xx > 1280) xx = SCREEN_WIDTH;
                 g.drawImage(
                     sprite, 
-                    (xx - (TILE_SIZE/2)), (yy - (TILE_SIZE/2)), 
+                    (xx - (TILE_SIZE/2)), (yy - (TILE_SIZE/2)),
                     TILE_SIZE, TILE_SIZE, 
                     null
                 );
@@ -99,10 +126,10 @@ public class dummy {
                 delta_x = 0;
             }
 
-            if(x_pos <= (MIN_X + (16 * 2)) && inputs.left_pressed) delta_x = 0;
-            if(x_pos >= (MAX_X - (16 * 2)) && inputs.right_pressed) delta_x = 0;
-            if(y_pos <= (MIN_Y + (16 * 2)) && inputs.up_pressed) delta_y = 0;
-            if(y_pos >= (MAX_Y - (16 * 2)) && inputs.down_pressed) delta_y = 0;
+            if(colliding_left && inputs.left_pressed) delta_x = 0;
+            if(colliding_right && inputs.right_pressed) delta_x = 0;
+            if(colliding_top && inputs.up_pressed) delta_y = 0;
+            if(colliding_down && inputs.down_pressed) delta_y = 0;
 
             if(!cameraNotTouchingEdge()){//SO if camera touching edge HAHHAAHAHAH
                 yy += delta_y;
