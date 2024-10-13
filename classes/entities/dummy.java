@@ -14,6 +14,7 @@ public class dummy {
     BufferedImage sprite;
     public int x_pos, y_pos, screen_x, screen_y, map_length, map_height;
     public int xx, yy;
+    public int speed;
 
     boolean colliding_left;
     boolean colliding_right;
@@ -34,6 +35,10 @@ public class dummy {
         return y_pos;
     }
 
+    public int getSpeed(){
+        return speed;
+    }
+
     public void setColliding_left(boolean colliding_left){
         this.colliding_left = colliding_left;
     }
@@ -51,6 +56,7 @@ public class dummy {
     }
 
     public dummy(int x, int y, int TILE_SIZE, int map_length, int map_height){
+        this.speed = 8;
         this.map_length = map_length;
         this.map_height = map_height;
         this.TILE_SIZE = TILE_SIZE;
@@ -86,7 +92,7 @@ public class dummy {
                 g.drawImage(
                     sprite, 
                     (screen_x - (TILE_SIZE/2)), (screen_y - (TILE_SIZE/2)), 
-                    TILE_SIZE, TILE_SIZE, 
+                    TILE_SIZE, TILE_SIZE,
                     null)
                 ;
             }else{
@@ -108,20 +114,20 @@ public class dummy {
     public void update_position(key_handler inputs){
         //check which key is pressed and add/subtract the corresponding value
         int delta_x = 0, delta_y = 0;//Delta means "change in"
-        System.out.println("Current pos: x: " + x_pos + " y: " + y_pos + " | Screen pos: x: " + screen_x + " y: " + screen_y);
+        System.out.print("Current pos: x: " + x_pos + " y: " + y_pos + " | Screen pos: x: " + screen_x + " y: " + screen_y + ":");
         if(inputs.up_pressed || inputs.down_pressed || inputs.left_pressed || inputs.right_pressed){
 
             if(inputs.up_pressed)
-                delta_y = -10;
+                delta_y = -speed;
             if(inputs.down_pressed)
-                delta_y = 10;
+                delta_y = speed;
             if(inputs.up_pressed == inputs.down_pressed)
                 delta_y = 0;
 
             if(inputs.left_pressed)
-                delta_x = -10;
+                delta_x = -speed;
             if(inputs.right_pressed)
-                delta_x = 10;
+                delta_x = speed;
             if(inputs.right_pressed == inputs.left_pressed){
                 delta_x = 0;
             }

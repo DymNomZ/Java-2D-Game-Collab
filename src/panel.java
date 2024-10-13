@@ -64,10 +64,46 @@ public class panel extends JPanel {
     //COLLISION TEST
     void collisionCheck(){
         //Checks if the dummy is colliding with map border
-	    d.setColliding_right(d.getX_pos() + (16 * SCALE) > EAST_MAP_BOUNDARY);
-	    d.setColliding_left(d.getX_pos() - (16 * SCALE) < WEST_MAP_BOUNDARY);
-	    d.setColliding_down(d.getY_pos() + (16 * SCALE) > SOUTH_MAP_BOUNDARY);
-	    d.setColliding_top(d.getY_pos() - (16 * SCALE) < NORTH_MAP_BOUNDARY);
+        int d_topHitbox = d.getY_pos() - (16 * SCALE);
+        int d_downHitBox = d.getY_pos() + (16 * SCALE);
+        int d_rightHitbox = d.getX_pos() + (16 * SCALE);
+        int d_leftHitbox = d.getX_pos() - (16 * SCALE);
+        System.out.println(" " + d_topHitbox + " " + d_downHitBox + " " + d_rightHitbox + " " + d_leftHitbox);
+        boolean isColliding_r = false;
+        boolean isColliding_l = false;
+        boolean isColliding_u = false;
+        boolean isColliding_d = false;
+	    isColliding_r = (d_rightHitbox >= EAST_MAP_BOUNDARY);
+	    isColliding_l = (d_leftHitbox <= WEST_MAP_BOUNDARY);
+	    isColliding_d = (d_downHitBox >= SOUTH_MAP_BOUNDARY);
+	    isColliding_u = (d_topHitbox <= NORTH_MAP_BOUNDARY);
+        int map_tiles[][] = new int[50][50];
+        map_tiles = map.getMap_tiles();
+        for(int i = 0;i < 50;i++){
+            for(int j = 0;j < 50;j++){
+                if(map_tiles[i][j] == 4){
+                    int tile_xpos = ((j + 1) * DEF_DIMENSION * SCALE) - (DEF_DIMENSION/2) * SCALE;
+                    int tile_ypos = ((i + 1) * DEF_DIMENSION * SCALE) - (DEF_DIMENSION/2) * SCALE;
+                    boolean isSameRow = d_topHitbox < tile_ypos + ((DEF_DIMENSION/2) * SCALE) && d_downHitBox > tile_ypos - ((DEF_DIMENSION/2) * SCALE);
+                    boolean isSameCol = d_leftHitbox < tile_xpos + ((DEF_DIMENSION/2) * SCALE) && d_rightHitbox > tile_xpos - ((DEF_DIMENSION/2) * SCALE) ;
+
+                    if(!isColliding_l)
+                        isColliding_l = (d_leftHitbox <= tile_xpos + ((DEF_DIMENSION/2) * SCALE)  && isSameRow && d_leftHitbox >= tile_xpos - ((DEF_DIMENSION/2)*SCALE));
+                    if(!isColliding_r)
+                        isColliding_r = (d_rightHitbox >= tile_xpos - ((DEF_DIMENSION/2) * SCALE)  && isSameRow && d_rightHitbox <= tile_xpos + ((DEF_DIMENSION/2) * SCALE));
+                    if(!isColliding_u)
+                        isColliding_u = (d_topHitbox <= tile_ypos + ((DEF_DIMENSION/2) * SCALE)  && isSameCol && d_topHitbox >= tile_ypos - ((DEF_DIMENSION/2)*SCALE));
+                    if(!isColliding_d)
+                        isColliding_d = (d_downHitBox >= tile_ypos - ((DEF_DIMENSION/2) * SCALE) && isSameCol && d_downHitBox <= tile_ypos + ((DEF_DIMENSION/2)*SCALE));
+
+                }
+            }
+        }
+        d.setColliding_left(isColliding_l);
+        d.setColliding_right(isColliding_r);
+        d.setColliding_top(isColliding_u);
+        d.setColliding_down(isColliding_d);
+
     }
 
 

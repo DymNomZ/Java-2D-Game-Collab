@@ -18,6 +18,10 @@ public class map_constructor {
     //the following variables is temporary as of the moment
     String kind;
 
+    public int[][] getMap_tiles(){
+        return map_tiles;
+    }
+
     //Will hold the last coordinates before the camera entered edge mode
     int recent_x = 0, recent_y = 0;
     public map_constructor(String kind, int rows, int cols){
@@ -96,8 +100,8 @@ public class map_constructor {
                 //ie if the dummy is at x position 640, you can think of it that the dummy is 640 pixels away from the border
                 //any lower than that it will display the "void" because the screen has to display something to fit the 1280x640 screen
                 //maka explain rako guys puhon if mo ask mo AHAHAHAHAHHAH
-                if ((d.x_pos > d.screen_x && d.x_pos < ((map_length * TILE_SIZE) - (d.screen_x + TILE_SIZE))
-                && (d.y_pos > d.screen_y && d.y_pos < ((map_height * TILE_SIZE) - (d.screen_y + TILE_SIZE))))) {
+                if ((d.x_pos >= d.screen_x && d.x_pos <= ((map_length * TILE_SIZE) - (d.screen_x + TILE_SIZE))
+                && (d.y_pos >= d.screen_y && d.y_pos <= ((map_height * TILE_SIZE) - (d.screen_y + TILE_SIZE))))) {
                     recent_x = d.x_pos;
                     recent_y = d.y_pos;
                     
@@ -135,11 +139,11 @@ public class map_constructor {
                     //The following if-else if statements is the mechanism for the "dragging" of the camera by the dummy when in edge mode
                     //It check whether the dummy is outside the borders of the screen, if so then it sorts of "pushes" the camera with it
                     //we add 10 as that is our temporary default speed variable of our character, this is will be changed once we have a finalized walk speed value
-                    if(d.y_pos < recent_y - (SCREEN_HEIGHT/2)) recent_y -= 10;
-                    else if (d.y_pos > recent_y + (SCREEN_HEIGHT/2)) recent_y += 10;
+                    if(d.y_pos < recent_y - (SCREEN_HEIGHT/2)) recent_y -= d.getSpeed();
+                    else if (d.y_pos > recent_y + (SCREEN_HEIGHT/2)) recent_y += d.getSpeed();
                     
-                    if (d.x_pos < recent_x - (SCREEN_WIDTH/2)) recent_x -=10;
-                    else if (d.x_pos > recent_x + (SCREEN_WIDTH/2)) recent_x += 10;
+                    if (d.x_pos < recent_x - (SCREEN_WIDTH/2)) recent_x -= d.getSpeed();
+                    else if (d.x_pos > recent_x + (SCREEN_WIDTH/2)) recent_x += d.getSpeed();
 
                     //same idea of the above comment on the above if statement
                     screen_x = tile_x - recent_x + d.screen_x;    
