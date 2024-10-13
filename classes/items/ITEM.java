@@ -4,7 +4,7 @@ public abstract class ITEM {
     private String name;
     private boolean isStackable;
     private int quantity;   //suggest to move to only CONSUMABLE since no reason to give weapons and stat mods quantity since limited to only 1? -Raymond
-    private String item_type;
+    private String item_type; // why isn't this visible? - FV
     private int quality;    //suggest to move to only WEAPONS since no reason to give consumables quality level? -Raymond
     private int id;
 
@@ -38,6 +38,17 @@ public abstract class ITEM {
 
     public int getId() {
         return id;
+    }
+
+    public int getQuantity() {
+        return quantity; // may be used to check if item is 0 and therefore be removed
+    }
+
+    public void consumeItem() { //consume method for consumables here, since quantity is private -FV
+        
+        if (quality != 0) {
+            quantity -= 1;
+        } 
     }
 
 
