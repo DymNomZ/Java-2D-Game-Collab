@@ -27,8 +27,12 @@ public abstract class ITEM {
         this.id = id;
     }
 
+    protected void setQuantity(int amount){
+        this.quantity -= amount;
+    }
 
-    public String getName() {
+
+	public String getName() {
         return name;
     }
 
