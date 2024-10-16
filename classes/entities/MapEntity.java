@@ -1,6 +1,6 @@
 package classes.entities;
 
-public abstract class MAP_ENTITY extends PANEL_ENTITY {
+public abstract class MapEntity extends PanelEntity {
     private String name;
     private int hit_points;
     private int attack_stat = 0;
@@ -9,8 +9,8 @@ public abstract class MAP_ENTITY extends PANEL_ENTITY {
     private int id;
     private static final int INFINITE = Integer.MAX_VALUE; // Infinite health and defense for NPCs
 
-    public MAP_ENTITY(){}
-    public MAP_ENTITY(String name, int hit_points, int attack_stat, float haste, int defense_stat, int id){
+    public MapEntity(){}
+    public MapEntity(String name, int hit_points, int attack_stat, float haste, int defense_stat, int id){
         this.name = name;
         this.hit_points = hit_points;
         this.attack_stat = attack_stat;
@@ -19,7 +19,7 @@ public abstract class MAP_ENTITY extends PANEL_ENTITY {
         this.id = id;
     }
 
-    public MAP_ENTITY(String name, int id){
+    public MapEntity(String name, int id){
         this.name = name;
         this.hit_points = INFINITE;
         this.defense_stat = INFINITE;

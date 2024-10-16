@@ -1,8 +1,8 @@
 package classes.items;
 
-public class CONSUMABLE_UTILITY extends CONSUMABLE{
+public class ConsumableUtility extends Consumable{
 
-	public CONSUMABLE_UTILITY(String name, int quantity, int id){
+	public ConsumableUtility(String name, int quantity, int id){
 		super(name, quantity, "UTILITY", id); //item_type placeholder name
 	}
 
@@ -14,21 +14,21 @@ public class CONSUMABLE_UTILITY extends CONSUMABLE{
 	* */
 
 
-	public static class EnergyDrink extends CONSUMABLE_UTILITY //implements statBuffer??
+	public static class EnergyDrink extends ConsumableUtility //implements statBuffer??
 	{
 		public EnergyDrink(int quantity)
 		{
 			super("Energy Drink", quantity, 300); //add id
 		}
 	}
-	public static class IceCream extends CONSUMABLE_UTILITY //implements crowdController??
+	public static class IceCream extends ConsumableUtility //implements crowdController??
 	{
 		public IceCream(int quantity)
 		{
 			super("Ice Cream", quantity, 301); //add id
 		}
 	}
-	public static class FusRoDah extends CONSUMABLE_UTILITY //implements attacker??
+	public static class FusRoDah extends ConsumableUtility //implements attacker??
 	{
 		public FusRoDah(int quantity)
 		{

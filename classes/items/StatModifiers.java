@@ -1,14 +1,14 @@
 package classes.items;
 
-public abstract class STAT_MODIFIERS extends ITEM{
+public abstract class StatModifiers extends Item{
     //TO IMPLEMENT
-    public STAT_MODIFIERS (String name, int quality, int id) {
+    public StatModifiers (String name, int quality, int id) {
         super(name, "Stat Modifier", quality, id);
     }
 
     //subclasses - FV
 
-    public static class AtkBoost extends STAT_MODIFIERS{
+    public static class AtkBoost extends StatModifiers{
         public AtkBoost() {
             super("Atk Boost", 3, 400);
         }   //what's the idea for this? thought stat mods would be actual items -Raymond
