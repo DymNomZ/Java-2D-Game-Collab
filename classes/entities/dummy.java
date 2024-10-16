@@ -170,6 +170,7 @@ public class dummy {
 
     public void calculate_next_position(key_handler inputs, panel pan){
         //check which key is pressed and add/subtract the corresponding value
+        System.out.println("x,y_pos: " + x_pos + ", " + y_pos + " screen_x,y" + screen_x + ", " + screen_y);
 
         if(inputs.up_pressed || inputs.down_pressed || inputs.left_pressed || inputs.right_pressed){
 
@@ -184,7 +185,7 @@ public class dummy {
             if(colliding_top && inputs.up_pressed) delta_y = 0;
             if(colliding_down && inputs.down_pressed) delta_y = 0;
 
-            update_position();
+            //update_position();
 
             if(inputs.right_pressed == inputs.left_pressed){
                 delta_x = 0;
@@ -201,7 +202,6 @@ public class dummy {
 
             update_position();
 
-            //System.out.println("Current pos: x: " + x_pos + " y: " + y_pos + " | Screen pos: x: " + screen_x + " y: " + screen_y + ":" + "delta x: " + delta_x + "delta_y: "+ delta_y);
 
 //            if (cameraNotTouchingEdge()){
 //                if(inputs.up_pressed) y_pos -= 10;
