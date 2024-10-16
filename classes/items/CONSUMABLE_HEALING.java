@@ -28,7 +28,7 @@ public class CONSUMABLE_HEALING extends CONSUMABLE
     public int consumeHeal()
     {
         consumeItem();          // subtracts 1 from item amount
-        if (healTime == 0) 
+        if (healTime == 0)      // why the if statement?    - Raymond
         {
             System.out.println("You used one " + this.getName() + " to heal " + this.healAmount + " hp!");
             return this.healAmount;

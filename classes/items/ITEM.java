@@ -8,7 +8,7 @@ public abstract class ITEM {
     private String item_type; // why isn't this visible? - FV
     private int quality; // suggest to move to only WEAPONS since no reason to give consumables quality
                          // level? -Raymond
-                         // da heck is quality level - Ervin
+                         // da heck is quality level - Ervin    //replied in gc -Raymond
     private int id;
 
     public ITEM(String name, String item_type, int quality, int id) // for weapons and stat-modifiers -Raymond
@@ -33,7 +33,7 @@ public abstract class ITEM {
 
     protected void setQuantity(int amount) {
         this.quantity -= amount;
-    }
+    }   //what's the idea for this? -Raymond
 
     public String getName() {
         return name;
@@ -52,8 +52,9 @@ public abstract class ITEM {
     }
 
     public void consumeItem() { // consume method for consumables here, since quantity is private -FV
-
-        if (quality != 0) {
+                                // suggest to move to CONSUMABLE class, same reason as quantity variable -Raymond
+        if (quality != 0) {     //should be quality not quantity? also prolly no need for if statement since if
+                                    // it reaches 0 it should automatically be removed from inventory -Raymond
             quantity -= 1;
         }
     }
