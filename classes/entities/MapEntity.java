@@ -11,6 +11,7 @@ public abstract class MapEntity extends PanelEntity {
 
     public MapEntity(){}
     public MapEntity(String name, int hit_points, int attack_stat, float haste, int defense_stat, int id){
+        super();
         this.name = name;
         this.hit_points = hit_points;
         this.attack_stat = attack_stat;

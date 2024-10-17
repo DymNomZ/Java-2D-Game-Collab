@@ -4,10 +4,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import classes.entities.Dummy;
+import classes.entities.Dummy_sus;
 
 
 public class Panel extends JPanel {
@@ -37,7 +39,7 @@ public class Panel extends JPanel {
         this.setFocusable(true);
         this.addKeyListener(key_input);
 
-        map = new MapConstructor("assets/maps/dummy_map.zip");
+        map = new MapConstructor("assets/maps/test_pattern_map.zip");
 
         max_map_row = map.getMap_height();
         max_map_col = map.getMap_length();
@@ -45,6 +47,7 @@ public class Panel extends JPanel {
 
     //temporary
     Dummy d = new Dummy(SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE, max_map_col, max_map_row);
+    Dummy_sus d1 = new Dummy_sus(max_map_row * TILE_SIZE, max_map_col * TILE_SIZE, TILE_SIZE, "../../assets/sprites/fidget_spinner.png");
 
     //COLLISION TEST
     public void collisionCheck(){
